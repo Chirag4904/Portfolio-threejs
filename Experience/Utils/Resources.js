@@ -58,7 +58,7 @@ export default class Resources extends EventEmitter {
 	}
 
 	singleAssetLoaded(asset, file) {
-		console.log(file);
+		// console.log(file);
 		this.items[asset.name] = file;
 		this.loaded += 1;
 		if (this.loaded === this.queue) {
