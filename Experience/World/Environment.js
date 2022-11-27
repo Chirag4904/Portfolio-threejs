@@ -7,8 +7,8 @@ export default class Environment {
 
 		this.sunLight = new THREE.DirectionalLight(0xffffff, 2);
 		this.sunLight.position.set(-1.5, 2, 3);
-		const helper = new THREE.DirectionalLightHelper(this.sunLight, 5);
-		this.scene.add(helper);
+		// const helper = new THREE.DirectionalLightHelper(this.sunLight, 5);
+		// this.scene.add(helper);
 		this.sunLight.castShadow = true;
 		this.sunLight.shadow.camera.far = 20;
 		this.sunLight.shadow.mapSize.set(2048, 2048);

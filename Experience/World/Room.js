@@ -8,7 +8,7 @@ export default class Room {
 		this.resources = this.experience.resources;
 		this.room = this.resources.items.room;
 		this.finalRoom = this.room.scene;
-		console.log(this.room);
+		// console.log(this.room);
 		this.setModel();
 	}
 	setModel() {
@@ -46,9 +46,9 @@ export default class Room {
 
 		this.setAnimation();
 		// this.finalRoom.rotation.y = Math.PI / 4;
-		this.time.on("tick", () => {
-			this.update();
-		});
+		// this.time.on("tick", () => {
+		// 	this.update();
+		// });
 	}
 
 	setAnimation() {
