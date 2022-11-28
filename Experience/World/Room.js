@@ -1,5 +1,7 @@
 import Experience from "../Experience";
 import * as THREE from "three";
+import gsap from "gsap";
+
 export default class Room {
 	constructor() {
 		this.experience = new Experience();
@@ -8,8 +10,15 @@ export default class Room {
 		this.resources = this.experience.resources;
 		this.room = this.resources.items.room;
 		this.finalRoom = this.room.scene;
-		// console.log(this.room);
+
+		this.lerp = {
+			current: 0,
+			target: 0,
+			ease: 0.1,
+		};
+
 		this.setModel();
+		this.onMouseMove();
 	}
 	setModel() {
 		//traversing each child mesh or group and casting shadow from them
@@ -57,7 +66,23 @@ export default class Room {
 		this.swim.play();
 	}
 
+	onMouseMove() {
+		window.addEventListener("mousemove", (event) => {
+			this.lerp.target =
+				(event.clientX / this.experience.sizes.width - 0.5) * 2;
+			this.lerp.target = this.lerp.target * 0.1;
+		});
+	}
+
 	update() {
+		this.lerp.current = gsap.utils.interpolate(
+			this.lerp.current,
+			this.lerp.target,
+			this.lerp.ease
+		);
+
+		this.finalRoom.rotation.y = this.lerp.current;
+
 		this.mixer.update(this.time.deltaTime * 0.001);
 	}
 }
