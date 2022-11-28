@@ -6,7 +6,7 @@ export default class Environment {
 		this.scene = this.experience.scene;
 
 		this.sunLight = new THREE.DirectionalLight(0xffffff, 2);
-		this.sunLight.position.set(-1.5, 2, 3);
+		this.sunLight.position.set(-1.5, 6, 3);
 		// const helper = new THREE.DirectionalLightHelper(this.sunLight, 5);
 		// this.scene.add(helper);
 		this.sunLight.castShadow = true;
