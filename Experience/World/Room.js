@@ -19,6 +19,7 @@ export default class Room {
 
 		this.setModel();
 		this.onMouseMove();
+		this.setAquariumLight();
 	}
 	setModel() {
 		//traversing each child mesh or group and casting shadow from them
@@ -34,6 +35,11 @@ export default class Room {
 					gchild.receiveShadow = true;
 				});
 			}
+			// console.log(child);
+			// if (child.name === "Shelves") {
+			// 	console.log(child.children[1]);
+			// }
+
 			if (child.name === "Aquarium") {
 				child.children[0].material = new THREE.MeshPhysicalMaterial();
 				child.children[0].material.roughness = 0;
@@ -72,6 +78,23 @@ export default class Room {
 				(event.clientX / this.experience.sizes.width - 0.5) * 2;
 			this.lerp.target = this.lerp.target * 0.1;
 		});
+	}
+
+	setAquariumLight() {
+		const width = 0.6;
+		const height = 0.7;
+		const intensity = 1;
+		this.rectLight = new THREE.RectAreaLight(
+			0xffffff,
+			intensity,
+			width,
+			height
+		);
+		this.rectLight.position.set(0.768244, 0.6, 0.08);
+		this.rectLight.rotation.x = -Math.PI / 2;
+		this.rectLight.rotation.z = Math.PI / 4;
+
+		this.scene.add(this.rectLight);
 	}
 
 	update() {
