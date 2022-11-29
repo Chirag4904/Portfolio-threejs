@@ -1,7 +1,7 @@
 import Experience from "../Experience";
 import * as THREE from "three";
 import gsap from "gsap";
-
+import GUI from "lil-gui";
 export default class Room {
 	constructor() {
 		this.experience = new Experience();
@@ -19,7 +19,8 @@ export default class Room {
 
 		this.setModel();
 		this.onMouseMove();
-		this.setAquariumLight();
+		this.setObjectLights();
+		// this.setGui();
 	}
 	setModel() {
 		//traversing each child mesh or group and casting shadow from them
@@ -80,7 +81,7 @@ export default class Room {
 		});
 	}
 
-	setAquariumLight() {
+	setObjectLights() {
 		const width = 0.6;
 		const height = 0.7;
 		const intensity = 1;
@@ -90,11 +91,44 @@ export default class Room {
 			width,
 			height
 		);
-		this.rectLight.position.set(0.768244, 0.6, 0.08);
+		this.rectLight.position.set(7.68244, 6, 0.5);
 		this.rectLight.rotation.x = -Math.PI / 2;
 		this.rectLight.rotation.z = Math.PI / 4;
 
-		this.scene.add(this.rectLight);
+		this.finalRoom.add(this.rectLight);
+
+		this.lampLight = new THREE.PointLight("#080808", 0.7, 80, 1.5);
+		this.lampLight.position.set(-10.02, 12.16, 1.05);
+		this.finalRoom.add(this.lampLight);
+		this.lampLight.castShadow = false;
+		// const sphereSize = 1;
+		// const pointLightHelper = new THREE.PointLightHelper(
+		// 	this.lampLight,
+		// 	sphereSize
+		// );
+		// this.scene.add(pointLightHelper);
+	}
+
+	setGui() {
+		this.gui = new GUI({ container: document.querySelector(".hero-main") });
+		this.obj = {
+			colorObj: { r: 0, g: 0, b: 0 },
+			intensity: 3,
+			position: { x: -10, y: 12, z: -0.3 },
+		};
+		this.gui.addColor(this.obj, "colorObj").onChange(() => {
+			this.lampLight.color.copy(this.obj.colorObj);
+		});
+
+		this.gui.add(this.obj.position, "x", -15, 15).onChange(() => {
+			this.lampLight.position.x = this.obj.position.x;
+		});
+		this.gui.add(this.obj.position, "y", -15, 15).onChange(() => {
+			this.lampLight.position.y = this.obj.position.y;
+		});
+		this.gui.add(this.obj.position, "z", -15, 15).onChange(() => {
+			this.lampLight.position.z = this.obj.position.z;
+		});
 	}
 
 	update() {
