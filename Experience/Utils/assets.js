@@ -7,6 +7,6 @@ export default [
 	{
 		name: "desktop",
 		type: "videoTexture",
-		path: "/textures/kda.mp4",
+		path: "/textures/test.mp4",
 	},
 ];
