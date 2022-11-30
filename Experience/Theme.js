@@ -13,6 +13,8 @@ export default class Sizes extends EventEmitter {
 		this.toggleButton.addEventListener("click", (e) => {
 			this.toggleCircle.classList.toggle("slide");
 			this.theme = this.theme === "light" ? "dark" : "light";
+			document.body.classList.toggle("dark-theme");
+			document.body.classList.toggle("light-theme");
 			// console.log(this.theme);
 			this.emit("switch", this.theme);
 		});
