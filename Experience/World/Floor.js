@@ -10,7 +10,7 @@ export default class Floor {
 	}
 
 	setFloor() {
-		this.geometry = new THREE.PlaneGeometry(20, 20);
+		this.geometry = new THREE.PlaneGeometry(50, 50);
 		this.material = new THREE.MeshStandardMaterial({ color: 0xffffff });
 		this.plane = new THREE.Mesh(this.geometry, this.material);
 		this.plane.rotation.x = -Math.PI / 2;
