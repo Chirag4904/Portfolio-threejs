@@ -1,7 +1,7 @@
 import Experience from "./Experience";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-// import GUI from "lil-gui";
+import GUI from "lil-gui";
 export default class Camera {
 	constructor() {
 		this.experience = new Experience();
@@ -24,20 +24,20 @@ export default class Camera {
 	}
 
 	setGui() {
-		this.gui = new GUI({ container: document.querySelector(".hero-main") });
+		this.gui = new GUI({ container: document.querySelector(".third-section") });
 		this.obj = {
 			colorObj: { r: 0, g: 0, b: 0 },
 			intensity: 3,
 			position: { x: 4, y: 4, z: 0 },
 		};
 
-		this.gui.add(this.obj.position, "x", -10, 10).onChange(() => {
+		this.gui.add(this.obj.position, "x", -200, 300).onChange(() => {
 			this.orthographicCamera.position.x = this.obj.position.x;
 		});
-		this.gui.add(this.obj.position, "y", -10, 10).onChange(() => {
+		this.gui.add(this.obj.position, "y", -200, 300).onChange(() => {
 			this.orthographicCamera.position.y = this.obj.position.y;
 		});
-		this.gui.add(this.obj.position, "z", -10, 10).onChange(() => {
+		this.gui.add(this.obj.position, "z", -200, 300).onChange(() => {
 			this.orthographicCamera.position.z = this.obj.position.z;
 		});
 	}
@@ -50,9 +50,9 @@ export default class Camera {
 			1000
 		);
 
-		this.perspectiveCamera.position.x = 18;
-		this.perspectiveCamera.position.y = 4;
-		this.perspectiveCamera.position.z = 24;
+		this.perspectiveCamera.position.x = 29;
+		this.perspectiveCamera.position.y = 14;
+		this.perspectiveCamera.position.z = 12;
 		this.scene.add(this.perspectiveCamera);
 	}
 
