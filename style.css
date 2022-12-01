@@ -161,6 +161,15 @@ svg {
 	color: var(--color-text);
 }
 
+/* .second-section {
+	position: relative;
+}
+.first-section {
+	position: relative;
+}
+.third-section {
+	position: relative;
+} */
 .hero-second-subheading {
 	font-size: 24px;
 	text-transform: uppercase;
@@ -173,6 +182,8 @@ svg {
 }
 
 .section {
+	position: relative;
+	overflow: hidden;
 	width: 50%;
 	padding: 1000px 4%;
 	margin: 0;
@@ -222,9 +233,40 @@ svg {
 }
 .left {
 	margin-right: auto;
+	border-top-right-radius: 700px;
+	border-bottom-right-radius: 0px 0px;
 }
 .right {
 	margin-left: auto;
+	border-top-left-radius: 700px;
+	border-bottom-left-radius: 0px 0px;
+}
+
+/* Progress bars */
+.progress-wrapper {
+	height: 0;
+	width: 12px;
+	z-index: 9999;
+}
+
+.progress-bar-wrapper-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.progress-bar-wrapper-right {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.progress-bar {
+	height: 100vh;
+	width: 100%;
+	background-color: var(--color-pink);
+	transform-origin: top center;
+	transform: scaleY(1);
 }
 
 .styleOne,
