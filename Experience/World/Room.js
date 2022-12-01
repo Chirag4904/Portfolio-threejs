@@ -55,6 +55,10 @@ export default class Room {
 					map: this.resources.items.desktop,
 				});
 			}
+
+			// if (child.name === "Mini_Floor") {
+			// 	child.position.set(-0.2895, 0, 8.83572);
+			// }
 		});
 
 		this.scene.add(this.finalRoom);
@@ -82,7 +86,7 @@ export default class Room {
 	}
 
 	setObjectLights() {
-		const width = 0.6;
+		const width = 0.5;
 		const height = 0.7;
 		const intensity = 1;
 		this.rectLight = new THREE.RectAreaLight(
