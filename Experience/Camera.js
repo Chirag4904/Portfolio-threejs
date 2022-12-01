@@ -28,16 +28,16 @@ export default class Camera {
 		this.obj = {
 			colorObj: { r: 0, g: 0, b: 0 },
 			intensity: 3,
-			position: { x: 4, y: 4, z: 0 },
+			position: { x: -14.53, y: 5.27, z: 20.01 },
 		};
 
-		this.gui.add(this.obj.position, "x", -200, 300).onChange(() => {
+		this.gui.add(this.obj.position, "x", -100, 100, 0.01).onChange(() => {
 			this.orthographicCamera.position.x = this.obj.position.x;
 		});
-		this.gui.add(this.obj.position, "y", -200, 300).onChange(() => {
+		this.gui.add(this.obj.position, "y", -20, 20, 0.01).onChange(() => {
 			this.orthographicCamera.position.y = this.obj.position.y;
 		});
-		this.gui.add(this.obj.position, "z", -200, 300).onChange(() => {
+		this.gui.add(this.obj.position, "z", -100, 100, 0.01).onChange(() => {
 			this.orthographicCamera.position.z = this.obj.position.z;
 		});
 	}
@@ -62,8 +62,8 @@ export default class Camera {
 			(this.sizes.aspect * this.sizes.frustrum) / 2,
 			this.sizes.frustrum / 2,
 			-this.sizes.frustrum / 2,
-			-50,
-			50
+			-100,
+			100
 		);
 
 		this.orthographicCamera.position.y = 4;
