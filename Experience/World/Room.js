@@ -20,7 +20,7 @@ export default class Room {
 		this.setModel();
 		this.onMouseMove();
 		this.setObjectLights();
-		// this.setGui();
+		this.setGui();
 	}
 	setModel() {
 		//traversing each child mesh or group and casting shadow from them
@@ -51,9 +51,12 @@ export default class Room {
 			}
 			// console.log(child);
 			if (child.name === "Computer") {
-				child.children[1].material = new THREE.MeshBasicMaterial({
-					map: this.resources.items.desktop,
-				});
+				this.computerScreen = child.children[1];
+				// child.children[1].material = new THREE.MeshBasicMaterial({
+				// 	map: this.resources.items.desktop,
+				// });
+				child.children[1].material = new THREE.MeshBasicMaterial();
+				child.children[1].material.color.set(0x00000);
 			}
 
 			// if (child.name === "Mini_Floor") {
@@ -118,11 +121,17 @@ export default class Room {
 		this.obj = {
 			colorObj: { r: 0, g: 0, b: 0 },
 			intensity: 3,
+			func: () => {
+				this.computerScreen.material.color.set(0xffffff);
+				this.computerScreen.material.map = this.resources.items.desktop;
+			},
 			position: { x: -10, y: 12, z: -0.3 },
 		};
 		this.gui.addColor(this.obj, "colorObj").onChange(() => {
 			this.lampLight.color.copy(this.obj.colorObj);
 		});
+
+		this.gui.add(this.obj, "func");
 
 		this.gui.add(this.obj.position, "x", -15, 15).onChange(() => {
 			this.lampLight.position.x = this.obj.position.x;
