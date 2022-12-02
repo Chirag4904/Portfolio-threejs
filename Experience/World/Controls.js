@@ -14,6 +14,10 @@ export default class Controls {
 		this.camera = this.experience.camera;
 		this.room = this.experience.world.room.finalRoom;
 		this.computerScreen = this.experience.world.room.computerScreen;
+
+		this.circle1 = this.experience.world.floor.circle1;
+		this.circle2 = this.experience.world.floor.circle2;
+		this.circle3 = this.experience.world.floor.circle3;
 		// console.log(this.room.children);
 		this.room.children.forEach((child) => {
 			if (child.type === "RectAreaLight") {
@@ -245,15 +249,6 @@ export default class Controls {
 
 		mm.add("(min-width: 1px)", () => {
 			// console.log("hfehfh");
-			this.thirdMoveTimeline = new GSAP.timeline({
-				scrollTrigger: {
-					trigger: ".third-move",
-					start: "top top",
-					bottom: "bottom bottom",
-					scrub: 0.6,
-					invalidateOnRefresh: true,
-				},
-			});
 
 			this.sections = document.querySelectorAll(".section");
 			this.sections.forEach((section) => {
@@ -316,6 +311,60 @@ export default class Controls {
 						pinSpacing: false,
 					},
 				});
+			});
+
+			//circle animations
+			this.firstMoveTimeline = new GSAP.timeline({
+				scrollTrigger: {
+					trigger: ".first-move",
+					start: "top top",
+					bottom: "bottom bottom",
+					scrub: 0.6,
+					invalidateOnRefresh: true,
+				},
+			}).to(this.circle1.scale, {
+				x: 3,
+				y: 3,
+				z: 3,
+			});
+
+			//SECOND SECTION ----------------------------------------->
+			this.secondMoveTimeline = new GSAP.timeline({
+				scrollTrigger: {
+					trigger: ".second-move",
+					start: "top top",
+					bottom: "bottom bottom",
+					scrub: 0.6,
+					markers: true,
+					invalidateOnRefresh: true,
+				},
+			})
+				.to(this.circle2.scale, {
+					x: 3,
+					y: 3,
+					z: 3,
+				})
+				.to(
+					this.room.position,
+					{
+						y: 0.7,
+					},
+					"<"
+				);
+
+			//THIRD SECTION ----------------------------------------->
+			this.thirdMoveTimeline = new GSAP.timeline({
+				scrollTrigger: {
+					trigger: ".third-move",
+					start: "top top",
+					bottom: "bottom bottom",
+					scrub: 0.6,
+					invalidateOnRefresh: true,
+				},
+			}).to(this.circle3.scale, {
+				x: 3,
+				y: 3,
+				z: 3,
 			});
 
 			//might look to transform Object in threejs for moving mesh here and there for tweaking
