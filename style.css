@@ -325,6 +325,11 @@ svg {
 	border-color: var(--color-green);
 }
 
+.desktop {
+	cursor: pointer;
+	position: absolute;
+}
+
 @media (max-width: 968px) {
 	.section {
 		width: 100%;
