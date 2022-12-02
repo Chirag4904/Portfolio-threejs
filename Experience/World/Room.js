@@ -68,11 +68,40 @@ export default class Room {
 		this.finalRoom.scale.set(0.1, 0.1, 0.1);
 
 		this.setAnimation();
+
+		this.powerOn = document.querySelector(".desktop");
+		// console.log(this.computerScreen);
+		this.powerOn.addEventListener("click", () => {
+			// const canva = this.experience.renderer.renderer.domElement;
+			// const width = canva.width;
+
+			// const height = canva.height;
+
+			// console.log(this.computerScreen.position);
+			// // this.experience.renderer.renderer.setSize(width, height, false);
+
+			// // const tempV = new THREE.Vector3();
+
+			// console.log(canva);
+			if (this.computerScreen.material.map) {
+				this.computerScreen.material.map = null;
+				this.computerScreen.material.color.set(0x000000);
+			} else {
+				this.computerScreen.material.color.set(0xffffff);
+				this.computerScreen.material.map = this.resources.items.desktop;
+			}
+		});
 		// this.finalRoom.rotation.y = Math.PI / 4;
 		// this.time.on("tick", () => {
 		// 	this.update();
 		// });
 	}
+
+	// turnDesktopOn(){
+	// 	this.computerScreen.material.color.set(0xffffff);
+	// 	this.computerScreen.material.map = this.resources.items.desktop;
+
+	// }
 
 	setAnimation() {
 		this.mixer = new THREE.AnimationMixer(this.finalRoom);
@@ -150,7 +179,7 @@ export default class Room {
 			this.lerp.target,
 			this.lerp.ease
 		);
-
+		// console.log(this.computerScreen.position);
 		this.finalRoom.rotation.y = this.lerp.current;
 
 		this.mixer.update(this.time.deltaTime * 0.001);
