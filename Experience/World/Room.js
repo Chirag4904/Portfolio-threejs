@@ -10,6 +10,7 @@ export default class Room {
 		this.resources = this.experience.resources;
 		this.room = this.resources.items.room;
 		this.finalRoom = this.room.scene;
+		this.roomChildren = {};
 
 		this.lerp = {
 			current: 0,
@@ -20,7 +21,7 @@ export default class Room {
 		this.setModel();
 		this.onMouseMove();
 		this.setObjectLights();
-		this.setGui();
+		// this.setGui();
 	}
 	setModel() {
 		//traversing each child mesh or group and casting shadow from them
@@ -59,6 +60,15 @@ export default class Room {
 				child.children[1].material.color.set(0x00000);
 			}
 
+			//setting initial scale of every mesh as 0 for the intro section to load and then scale them back
+			child.scale.set(0, 0, 0);
+			if (child.name === "Cube") {
+				// child.scale.set(1, 1, 1);
+				child.position.set(0, -1.5, 0);
+				child.rotation.y = Math.PI / 4;
+			}
+
+			this.roomChildren[child.name.toLowerCase()] = child;
 			// if (child.name === "Mini_Floor") {
 			// 	child.position.set(-0.2895, 0, 8.83572);
 			// }
@@ -132,11 +142,13 @@ export default class Room {
 		this.rectLight.rotation.z = Math.PI / 4;
 
 		this.finalRoom.add(this.rectLight);
+		this.roomChildren["rectLight"] = this.rectLight;
 
 		this.lampLight = new THREE.PointLight("#080808", 0.7, 80, 1.5);
 		this.lampLight.position.set(-10.02, 12.16, 1.05);
 		this.finalRoom.add(this.lampLight);
 		this.lampLight.castShadow = false;
+		this.roomChildren["lampLight"] = this.lampLight;
 		// const sphereSize = 1;
 		// const pointLightHelper = new THREE.PointLightHelper(
 		// 	this.lampLight,
