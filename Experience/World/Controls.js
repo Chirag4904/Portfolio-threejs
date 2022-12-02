@@ -3,6 +3,7 @@ import GSAP from "gsap";
 import Experience from "../Experience";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ASScroll from "@ashthornton/asscroll";
 export default class Controls {
 	constructor() {
 		this.experience = new Experience();
@@ -12,6 +13,7 @@ export default class Controls {
 		this.time = this.experience.time;
 		this.camera = this.experience.camera;
 		this.room = this.experience.world.room.finalRoom;
+		this.computerScreen = this.experience.world.room.computerScreen;
 		// console.log(this.room.children);
 		this.room.children.forEach((child) => {
 			if (child.type === "RectAreaLight") {
@@ -24,6 +26,7 @@ export default class Controls {
 		// console.log(this.pointLight);
 		GSAP.registerPlugin(ScrollTrigger);
 
+		this.setSmoothScroll();
 		this.setScrollTrigger();
 
 		// this.progress = 0;
@@ -42,6 +45,64 @@ export default class Controls {
 		// };
 	}
 
+	setSmoothScroll() {
+		this.asscroll = this.setupASScroll();
+	}
+
+	setupASScroll() {
+		// https://github.com/ashthornton/asscroll
+		const asscroll = new ASScroll({
+			ease: 0.1,
+			disableRaf: true,
+		});
+
+		GSAP.ticker.add(asscroll.update);
+
+		ScrollTrigger.defaults({
+			scroller: asscroll.containerElement,
+		});
+
+		ScrollTrigger.scrollerProxy(asscroll.containerElement, {
+			scrollTop(value) {
+				if (arguments.length) {
+					asscroll.currentPos = value;
+					return;
+				}
+				return asscroll.currentPos;
+			},
+			getBoundingClientRect() {
+				return {
+					top: 0,
+					left: 0,
+					width: window.innerWidth,
+					height: window.innerHeight,
+				};
+			},
+			fixedMarkers: true,
+		});
+
+		asscroll.on("update", ScrollTrigger.update);
+		ScrollTrigger.addEventListener("refresh", asscroll.resize);
+
+		requestAnimationFrame(() => {
+			asscroll.enable({
+				newScrollElements: document.querySelectorAll(
+					".gsap-marker-start, .gsap-marker-end, [asscroll]"
+				),
+			});
+		});
+		return asscroll;
+	}
+
+	turnDesktopOn() {
+		if (this.computerScreen.material.map) {
+			this.computerScreen.material.map = null;
+			this.computerScreen.material.color.set(0x000000);
+		} else {
+			this.computerScreen.material.color.set(0xffffff);
+			this.computerScreen.material.map = this.resources.items.desktop;
+		}
+	}
 	setScrollTrigger() {
 		let mm = GSAP.matchMedia();
 
@@ -63,6 +124,10 @@ export default class Controls {
 			});
 			this.firstMoveTimeline.to(this.room.position, {
 				x: () => {
+					// console.log("first section");
+					// this.computerScreen.material.map = null;
+					// this.computerScreen.material.color.set(0x000000);
+
 					return this.sizes.width * 0.0014;
 				},
 			});
@@ -80,6 +145,13 @@ export default class Controls {
 			})
 				.to(this.room.position, {
 					x: () => {
+						// if (this.computerScreen.material.map) {
+						// 	this.computerScreen.material.map = null;
+						// 	this.computerScreen.material.color.set(0x000000);
+						// } else {
+						// 	this.computerScreen.material.color.set(0xffffff);
+						// 	this.computerScreen.material.map = this.resources.items.desktop;
+						// }
 						return 0;
 					},
 					z: () => {
@@ -125,6 +197,7 @@ export default class Controls {
 
 		mm.add("(max-width: 968px)", () => {
 			// mobile setup code here...
+
 			this.room.position.set(0, 0, 0);
 			this.room.scale.set(0.07, 0.07, 0.07);
 			this.rectLight.width = 0.3;
