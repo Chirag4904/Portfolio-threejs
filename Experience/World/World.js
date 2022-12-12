@@ -16,7 +16,7 @@ export default class World extends EventEmitter {
 			this.environment = new Environment();
 			this.room = new Room();
 			this.floor = new Floor();
-			this.controls = new Controls();
+			// this.controls = new Controls();
 			this.emit("worldReady");
 		});
 
@@ -35,8 +35,8 @@ export default class World extends EventEmitter {
 			this.room.update();
 		}
 
-		if (this.controls) {
-			this.controls.update();
-		}
+		// if (this.controls) {
+		// 	this.controls.update();
+		// }
 	}
 }
