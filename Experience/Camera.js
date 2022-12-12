@@ -11,7 +11,7 @@ export default class Camera {
 
 		this.createPerspectiveCamera();
 		this.createOrthographicCamera();
-		this.setOrbitControls();
+		// this.setOrbitControls();
 		// this.setGui();
 
 		// const size = 20;
@@ -99,7 +99,7 @@ export default class Camera {
 
 	update() {
 		// console.log(this.perspectiveCamera.position);
-		this.controls.update();
+		// this.controls.update();
 		// this.helper.matrixWorldNeedsUpdate = true;
 		// this.helper.update();
 		// this.helper.position.copy(this.orthographicCamera.position);
