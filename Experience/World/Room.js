@@ -140,12 +140,16 @@ export default class Room {
 		this.rectLight.position.set(7.68244, 6, 0.5);
 		this.rectLight.rotation.x = -Math.PI / 2;
 		this.rectLight.rotation.z = Math.PI / 4;
+		//initial scale 0 so i can animate it later
+		this.rectLight.scale.set(0, 0, 0);
 
 		this.finalRoom.add(this.rectLight);
 		this.roomChildren["rectLight"] = this.rectLight;
 
 		this.lampLight = new THREE.PointLight("#080808", 0.7, 80, 1.5);
 		this.lampLight.position.set(-10.02, 12.16, 1.05);
+		//initial intensity is set to 0 so that animate later
+		this.lampLight.intensity = 0;
 		this.finalRoom.add(this.lampLight);
 		this.lampLight.castShadow = false;
 		this.roomChildren["lampLight"] = this.lampLight;

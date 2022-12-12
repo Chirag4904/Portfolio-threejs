@@ -1,4 +1,4 @@
-import * as THREE from "three";
+// import * as THREE from "three";
 import GSAP from "gsap";
 import Experience from "../Experience";
 
@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ASScroll from "@ashthornton/asscroll";
 export default class Controls {
 	constructor() {
+		console.log("yayyyyy");
 		this.experience = new Experience();
 		this.scene = this.experience.scene;
 		this.sizes = this.experience.sizes;

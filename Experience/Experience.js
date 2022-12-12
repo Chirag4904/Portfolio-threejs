@@ -10,6 +10,7 @@ import Renderer from "./Renderer";
 
 import World from "./World/World";
 import Preloader from "./World/Preloader";
+import Controls from "./World/Controls";
 
 import Theme from "./Theme";
 
@@ -32,6 +33,10 @@ export default class Experience {
 		this.theme = new Theme();
 		this.world = new World();
 		this.preloader = new Preloader();
+
+		this.preloader.on("enableControls", () => {
+			this.controls = new Controls();
+		});
 
 		this.resources.on("loaded", () => {
 			console.log("hello");
