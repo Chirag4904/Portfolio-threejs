@@ -30,6 +30,7 @@ export default class Controls {
 		});
 		// console.log(this.pointLight);
 		GSAP.registerPlugin(ScrollTrigger);
+		document.querySelector(".page").style.overflow = "visible";
 
 		this.setSmoothScroll();
 		this.setScrollTrigger();
