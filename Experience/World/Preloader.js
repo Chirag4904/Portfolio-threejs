@@ -186,6 +186,7 @@ export default class Preloader extends EventEmitter {
 					},
 					">-0.2"
 				)
+
 				.to(
 					this.roomChildren.desks.scale,
 					{
@@ -239,6 +240,83 @@ export default class Preloader extends EventEmitter {
 					"<"
 				)
 				.to(
+					this.roomChildren.mailbox.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.2)",
+						duration: 0.5,
+					},
+					">-0.2"
+				)
+				.to(
+					this.roomChildren.flower1.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.2)",
+						duration: 0.5,
+					},
+					">-0.2"
+				)
+				.to(
+					this.roomChildren.flower2.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.2)",
+						duration: 0.5,
+					},
+					">-0.2"
+				)
+				.to(
+					this.roomChildren.floorfirst.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.2)",
+						duration: 0.5,
+					},
+					">-0.2"
+				)
+				.to(
+					this.roomChildren.floorsecond.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.2)",
+						duration: 0.5,
+					},
+					">-0.2"
+				)
+				.to(
+					this.roomChildren.floorthird.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.2)",
+						duration: 0.5,
+					},
+					">-0.2"
+				)
+				.to(
+					this.roomChildren.lamp.scale,
+					{
+						x: 1,
+						y: 1,
+						z: 1,
+						ease: "back.out(2.2)",
+						duration: 0.5,
+					},
+					">-0.2"
+				)
+				.to(
 					this.roomChildren.chair.rotation,
 					{
 						y: 4 * Math.PI + Math.PI / 4,
@@ -283,7 +361,9 @@ export default class Preloader extends EventEmitter {
 
 	async playIntro() {
 		//wait for the first animation to play first
+
 		await this.firstIntro();
+		this.moveFlag = true;
 		this.scrollOnceEvent = this.onScroll.bind(this);
 
 		this.touchStart = this.onTouch.bind(this);
@@ -294,8 +374,37 @@ export default class Preloader extends EventEmitter {
 	}
 
 	async playSecondIntro() {
+		this.moveFlag = false;
+		this.scaleFlag = true;
 		await this.secondIntro();
+		this.scaleFlag = false;
 		console.log(this.roomChildren.lampLight);
 		this.emit("enableControls");
+	}
+
+	move() {
+		if (this.device === "desktop") {
+			this.room.position.set(-1, 0, 0);
+		} else {
+			this.room.position.set(0, 0, -1);
+		}
+	}
+
+	scale() {
+		if (this.device === "desktop") {
+			this.room.scale.set(0.11, 0.11, 0.11);
+		} else {
+			this.room.scale.set(0.07, 0.07, 0.07);
+		}
+	}
+
+	update() {
+		if (this.moveFlag) {
+			this.move();
+		}
+
+		if (this.scaleFlag) {
+			this.scale();
+		}
 	}
 }
