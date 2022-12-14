@@ -79,7 +79,7 @@ export default class Room {
 
 		this.setAnimation();
 
-		this.powerOn = document.querySelector(".desktop");
+		this.powerOn = document.querySelector(".project ");
 		// console.log(this.computerScreen);
 		this.powerOn.addEventListener("click", () => {
 			// const canva = this.experience.renderer.renderer.domElement;
@@ -130,7 +130,7 @@ export default class Room {
 	setObjectLights() {
 		const width = 0.5;
 		const height = 0.7;
-		const intensity = 1;
+		const intensity = 0.8;
 		this.rectLight = new THREE.RectAreaLight(
 			0xffffff,
 			intensity,
