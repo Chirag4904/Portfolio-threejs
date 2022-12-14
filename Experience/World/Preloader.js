@@ -37,6 +37,7 @@ export default class Preloader extends EventEmitter {
 	firstIntro() {
 		return new Promise((resolve) => {
 			this.timeline = new GSAP.timeline();
+			this.timeline.set(".animateText", { y: 0, yPercent: 100 });
 
 			this.timeline.to(".preloader", {
 				opacity: 0,
@@ -78,7 +79,7 @@ export default class Preloader extends EventEmitter {
 
 			this.timeline
 				.to(".intro-text .animateText", {
-					yPercent: -100,
+					yPercent: 0,
 					stagger: 0.07,
 					ease: "back.out(1.2)",
 				})
@@ -163,14 +164,14 @@ export default class Preloader extends EventEmitter {
 					duration: 1,
 				})
 				.to(".hero-main-title .animateText", {
-					yPercent: -100,
+					yPercent: 0,
 					stagger: 0.07,
 					ease: "back.out(1.7)",
 				})
 				.to(
 					".hero-main-description .animateText",
 					{
-						yPercent: -100,
+						yPercent: 0,
 						stagger: 0.07,
 						ease: "back.out(1.7)",
 					},
@@ -179,7 +180,7 @@ export default class Preloader extends EventEmitter {
 				.to(
 					".first-sub .animateText",
 					{
-						yPercent: -100,
+						yPercent: 0,
 						stagger: 0.07,
 						ease: "back.out(1.7)",
 					},
@@ -188,7 +189,7 @@ export default class Preloader extends EventEmitter {
 				.to(
 					".second-sub .animateText",
 					{
-						yPercent: -100,
+						yPercent: 0,
 						stagger: 0.07,
 						ease: "back.out(1.7)",
 					},
@@ -216,6 +217,7 @@ export default class Preloader extends EventEmitter {
 					},
 					">-0.2"
 				)
+
 				.to(
 					this.roomChildren.clock.scale,
 					{
@@ -398,6 +400,7 @@ export default class Preloader extends EventEmitter {
 					},
 					"<"
 				)
+
 				.to(
 					".svg-wrapper",
 					{
